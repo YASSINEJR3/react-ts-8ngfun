@@ -1,6 +1,7 @@
 import * as React from 'react';
 import { people } from './data.js';
 import { getImageUrl } from './utils.js';
+import { useImmer } from 'use-immer';
 import './style.css';
 
 /*function Button() {
@@ -73,9 +74,75 @@ export default function Poem() {
 }*/
 
 export default function App() {
+  const [person ,updatePerson]=useImmer({
+    name: 'Niki de Saint Phalle',
+    artwork: {
+      title: 'Blue Nana',
+      city: 'Hamburg',
+      image: 'https://i.imgur.com/Sd1AgUOm.jpg',
+    }
+  });
+  const handleNameChange = ({ target }) =>{
+    updatePerson(old => {
+      old.name = target.value;
+    });
+  }
+  const handleTitleChange = ({ target }) =>{
+    updatePerson( old =>{
+      old.artwork.title=target.value;
+    })
+  }
+  const handleCityChange = ({ target }) =>{
+    updatePerson( old =>{
+      old.artwork.city=target.value;
+    })
+  }
+  const handleImageChange = ({ target }) =>{
+    updatePerson( old =>{
+      old.artwork.image=target.value;
+    })
+  }
   return (
-    <div>
-      <h1>HELLO WORLD</h1>
-    </div>
+    <>
+      <label>
+          Name:
+          <input
+            value={person.name}
+            onChange={handleNameChange}
+          />
+        </label>
+        <label>
+          Title:
+          <input
+            value={person.artwork.title}
+            onChange={handleTitleChange}
+          />
+        </label>
+        <label>
+          City:
+          <input
+            value={person.artwork.city}
+            onChange={handleCityChange}
+          />
+        </label>
+        <label>
+          Image:
+          <input
+            value={person.artwork.image}
+            onChange={handleImageChange}
+          />
+        </label>
+        <p>
+          <i>{person.artwork.title}</i>
+          {' by '}
+          {person.name}
+          <br />
+          (located in {person.artwork.city})
+        </p>
+        <img
+          src={person.artwork.image}
+          alt={person.artwork.title}
+        />
+    </>
   );
 }
