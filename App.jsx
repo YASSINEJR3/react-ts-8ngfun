@@ -73,7 +73,7 @@ export default function Poem() {
   );
 }*/
 
-export default function App() {
+/*export default function App() {
   const [person ,updatePerson]=useImmer({
     name: 'Niki de Saint Phalle',
     artwork: {
@@ -145,4 +145,13 @@ export default function App() {
         />
     </>
   );
+}*/
+export default function App() {
+
+  return (
+    <div>
+      <h1>Hello world </h1>
+    </div>
+  )
+
 }
